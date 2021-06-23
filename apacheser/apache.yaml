@@ -7,4 +7,4 @@
       apt:
         name: apache2
         update_cache: yes
-        state: prasent
+        state: present
