@@ -1,0 +1,15 @@
+all:
+  hosts:
+    192.168.10.11
+  children:
+    webserver:
+      hosts:
+        web1.k.com:
+        web2.k.com:
+
+    appserver:
+      hosts:
+        app1.k.com:
+        app2.k.com:
+
+      
