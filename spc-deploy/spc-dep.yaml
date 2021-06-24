@@ -11,26 +11,26 @@
   tasks:
     - name: update ubuntu packages and install java
       apt:
-       name: {{ java_package }}
+       name: "{{ java_package }}"
        update_cache: yes
        state: present
     - name: Create spring petclinic directory
       file:
-        path: {{ app_dir }}
+        path: "{{ app_dir }}"
         state: directory
     - name: download spring petclinic
       get_url:
-        url: {{ app_download_url }}
-        dest: {{ app_file_name }}
+        url: "{{ app_download_url }}"
+        dest: "{{ app_file_name }}"
     - name: create springboot user
       user:
-        name: {{ app_username }}
-        password: {{ app_username }}
+        name: "{{ app_username }}"
+        password: "{{ app_username }}"
         state: present
     - name: change ownership of jar file
       file:
-        path: {{ app_filename }}
-        owner: {{ app_username}}
+        path: "{{ app_filename }}"
+        owner: "{{ app_username}}"
         mode: '500'
         state: file
     - name: copy the spring petclinic service file
