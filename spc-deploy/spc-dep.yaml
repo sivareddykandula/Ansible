@@ -7,42 +7,61 @@
       fail:
         msg: "This playbook will work only on ubuntu instances. Support for other OS will be added soon"
       when: ansible_facts['distribution'] != "Ubuntu"
+
     - name: update ubuntu packages and install java
       apt:
        name: "{{ java_package }}"
        update_cache: yes
        state: present
-    - name: debug message for java
-      debug:
-        msg: "java with package {{ java_package }} is installed"
+      notify:
+        - debug message for java
+
+    
+
     - name: Create spring petclinic directory
       file:
         path: "{{ app_dir }}"
         state: directory
-    - name: bedug message for create directory
-      debug:
-        msg: "Directory created at {{ app_dir }}"
+      notify:
+        - debug meaasage for create directory
+
+    
+
     - name: download spring petclinic
       get_url:
         url: "{{ app_download_url }}"
         dest: "{{ app_file_name }}"
+      notify:
+        - change ownership of jar file
+        
     - name: create springboot user
       user:
         name: "{{ app_username }}"
         password: "{{ app_username }}"
         state: present
+    
+    - name: copy the spring petclinic service file
+      copy:
+        dest: /etc/systemd/system/springpetclinic.service
+        src: springpetclinic.service
+
+    - name: enable and start spring petclinic
+      systemd:
+        name: springpetclinic.service
+        enabled: yes
+        state: started
+  handlers:
     - name: change ownership of jar file
       file:
         path: "{{ app_file_name }}"
         owner: "{{ app_username}}"
         mode: '500'
         state: file
-    - name: copy the spring petclinic service file
-      copy:
-        dest: /etc/systemd/system/springpetclinic.service
-        src: springpetclinic.service
-    - name: enable and start spring petclinic
-      systemd:
-        name: springpetclinic.service
-        enabled: yes
-        state: started
+
+    - name: debug message for java
+      debug:
+        msg: "java with package {{ java_package }} is installed"
+    - name: bedug message for create directory
+      debug:
+        msg: "Directory created at {{ app_dir }}"
+
