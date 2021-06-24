@@ -1,0 +1,9 @@
+172.31.18.101
+
+[webserver]
+web1.k.com
+web2.k.com
+
+[appserver]
+app1.k.com
+app2.k.com
