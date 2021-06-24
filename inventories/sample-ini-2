@@ -1,0 +1,7 @@
+192.168.10.11
+
+[webserver]
+web[01:25].k.com
+
+[appserver]
+app[01:10].k.com
