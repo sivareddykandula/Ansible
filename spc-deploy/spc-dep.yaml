@@ -29,7 +29,7 @@
         state: present
     - name: change ownership of jar file
       file:
-        path: "{{ app_filename }}"
+        path: "{{ app_file_name }}"
         owner: "{{ app_username}}"
         mode: '500'
         state: file
