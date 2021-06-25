@@ -9,7 +9,7 @@
       when: ansible_facts['distribution'] != "Ubuntu" and ansible_facts['distribution'] != "CentOS"
 
     - name: Install apache
-      apt:
+      package:
         name: "{{ apache_package }}"
         state: present
       notify:
