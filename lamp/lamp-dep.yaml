@@ -5,8 +5,8 @@
   tasks:
     - name: File the execution when the distibution is not ubuntu ans centos
       fail:
-        msg: "This is playbook isonly work for ubuntu instance. Support for other os will be add soon"
-      when: anible_facts['distibution'] != "Ubuntu" and ansible_facts['distribution'] != "CentOS"
+        msg: "This playbook will work only on  ubuntu instance. Support for other os will be add soon"
+      when: ansible_facts['distibution'] != "Ubuntu" and ansible_facts['distribution'] != "CentOS"
 
     - name: Install apache
       apt:
