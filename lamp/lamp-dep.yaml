@@ -1,0 +1,50 @@
+---
+- name: install apchae server and packages
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: File the execution when the distibution is not ubuntu ans centos
+      fail:
+        msg: "This is playbook isonly work for ubuntu instance. Support for other os will be add soon"
+      when: anible_facts['distibution'] != "Ubuntu" and ansible_facts['distribution'] != "CentOS"
+
+    - name: Install apache
+      apt:
+        name: "{{ apache_package }}"
+        state: present
+      notify:
+        log installed apache server
+
+    - name: Install php packages
+      packages:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ php_packages }}"
+
+    - name: copy the php page
+      copy:
+        dist: "{{ info_php_path }}"
+        src: "info.php"
+      notify:
+        info page copied
+
+    - name: ensure the service is running
+      service:
+        name: "{{ apache_package }}"
+        enabled: yes
+        state: started
+      notify:
+        restart apache
+        
+  handlers:
+    - name: log installed apache server
+      debug:
+        msg: "apache server installed using package {{ apache_package }}"
+    - name: info page copied
+      debug:
+        msg: "info page copied into {{ info_php_path }}"
+    - name: restart apache
+      service:
+        name: "{{ apache_package }}"
+        state: restarted
+
