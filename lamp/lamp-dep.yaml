@@ -5,7 +5,7 @@
   tasks:
     - name: File the execution when the distibution is not ubuntu ans centos
       fail:
-        msg: "This playbook will work only on  ubuntu instance. Support for other os will be add soon"
+        msg: "This playbook will work only on  ubuntu instance. Support for other os will be added soon"
       when: ansible_facts['distribution'] != "Ubuntu" and ansible_facts['distribution'] != "CentOS"
 
     - name: Install apache
