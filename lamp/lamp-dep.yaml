@@ -13,7 +13,7 @@
         name: "{{ apache_package }}"
         state: present
       notify:
-        log installed apache server
+        - log installed apache server
 
     - name: Install php packages
       package:
@@ -23,10 +23,10 @@
 
     - name: copy the php page
       copy:
-        dist: "{{ info_php_path }}"
+        dest: "{{ info_php_path }}"
         src: "info.php"
       notify:
-        info page copied
+        - info page copied
 
     - name: ensure the service is running
       service:
@@ -34,7 +34,7 @@
         enabled: yes
         state: started
       notify:
-        restart apache
+        - restart apache
 
   handlers:
     - name: log installed apache server
