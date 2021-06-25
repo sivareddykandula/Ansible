@@ -16,7 +16,7 @@
         log installed apache server
 
     - name: Install php packages
-      packages:
+      package:
         name: "{{ item }}"
         state: present
       loop: "{{ php_packages }}"
@@ -35,7 +35,7 @@
         state: started
       notify:
         restart apache
-        
+
   handlers:
     - name: log installed apache server
       debug:
