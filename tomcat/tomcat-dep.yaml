@@ -1,0 +1,32 @@
+---
+- name: Install tomcat
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install java
+      apt:
+        name: "{{ java_package }}"
+        update_cache: yes
+        state: present
+    - name: Ensure the tomcat group exists
+      group:
+        name: "{{ tomcat_group }}"
+        state: present
+    - name: Ensure tomcat home directory exists
+      file:
+        dest: "{{ tomcat_homedir }}"
+        state: directory
+    - name: Ensure user tomcat exists
+      user:
+        name: "{{ tomcat_user }}"
+        group: "{{ tomcat_group }}"
+        home: "{{ tomcat_homedir }}"
+        shell: "{{ tomcat_shell }}"
+    - name: Download tomcat
+      get_url:
+        url: "{{ tomcat_download_url }}"
+        dest: "{{ tomcat_download_dest }}"
+    - name: extract tomcat
+      unarchive:
+        src: "{{ tomcat_download_dest }}"
+        dest: "{{ tomcat_homedir }}"
