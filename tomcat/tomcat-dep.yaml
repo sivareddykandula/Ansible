@@ -1,5 +1,5 @@
 ---
-- name: Install tomcat
+- name: Installing tomcat 9
   hosts: all
   become: yes
   tasks:
@@ -30,3 +30,10 @@
       unarchive:
         src: "{{ tomcat_download_dest }}"
         dest: "{{ tomcat_homedir }}"
+    - name: Check if the tomcat is extracted
+      stat:
+        path: "{{ tomcat_checkdir }}"
+      register: tomcat_conf
+    - name: untar the tomcat
+      command: "sudo tar xzvf {{ tomcat_download_dest }} -C {{ tomcat_homedir }} -- strip-components=1"
+      when: not tomcat_conf.stat.exists
