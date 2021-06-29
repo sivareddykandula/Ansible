@@ -1,0 +1,9 @@
+---
+- name: Create necessary files (test2)
+  hosta: all
+  tasks:
+    - name: create files
+      file:
+        path: "{{ item }}"
+        state: file
+      loop: "{{ file_list }}"

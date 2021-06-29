@@ -1,0 +1,14 @@
+---
+- name: installing utility softwares
+  impact-playbook: test1.yaml
+  vars:
+    utility_softwares:
+      - git
+      - wget
+      - elinks
+- name: create files
+  include: "{{ filename2 }}.yaml"
+  vars:
+    file_list:
+      - /tmp/1.txt
+      - /tmp/2.txt
