@@ -5,7 +5,7 @@
     utility_softwares:
       - git
       - wget
-      - elinks
+      - tree
 - name: create files
   include: "{{ filename2 }}.yaml"
   vars:
