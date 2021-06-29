@@ -1,6 +1,6 @@
 ---
 - name: Create necessary files (test2)
-  hosta: all
+  hosts: all
   tasks:
     - name: create files
       file:
